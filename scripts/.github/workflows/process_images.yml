@@ -1,0 +1,24 @@
+name: Process cake images
+
+on:
+  push:
+    paths:
+      - "incoming/**"
+
+jobs:
+  process-images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pillow
+
+      - name: Run image processor
+        run: python scripts/process_and_upload.py
